@@ -118,16 +118,18 @@ algorithms as defined by OATH. (http://www.openauthentication.org)
 =item B<algorithm>
 
 Allowed values for I<algorithm> are 1, 224, 256, 384, 512, 512224, or 512256.
-For more information about the parameter, see also L<Digest::SHA>.
+For more information about this parameter, see also L<Digest::SHA>.
+
 If the argument is missing, SHA-1 will be used by default.
 
 =item B<digits>
 
-totp() and hotp() both default to returning 6 digits.
+C<totp()> and C<hotp()> both default to returning 6 digits.
 
 =item B<timestep>
 
-I<timestep> only applies to the totp() function.
+I<timestep> only applies to the C<totp()> function.
+
 By default, the I<timestep> is 30 seconds, so there is a new password every 30 seconds.
 
 =back

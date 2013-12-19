@@ -27,16 +27,18 @@ algorithms as defined by OATH. (http://www.openauthentication.org)
 - __algorithm__
 
     Allowed values for _algorithm_ are 1, 224, 256, 384, 512, 512224, or 512256.
-    For more information about the parameter, see also [Digest::SHA](http://search.cpan.org/perldoc?Digest::SHA).
+    For more information about this parameter, see also [Digest::SHA](http://search.cpan.org/perldoc?Digest::SHA).
+
     If the argument is missing, SHA-1 will be used by default.
 
 - __digits__
 
-    totp() and hotp() both default to returning 6 digits.
+    `totp()` and `hotp()` both default to returning 6 digits.
 
 - __timestep__
 
-    _timestep_ only applies to the totp() function.
+    _timestep_ only applies to the `totp()` function.
+
     By default, the _timestep_ is 30 seconds, so there is a new password every 30 seconds.
 
 ## __$oath->totp($secret\_key\[, $time\]) : Integer__
