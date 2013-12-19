@@ -1,0 +1,17 @@
+# carton snapshot format: version 1.0
+DISTRIBUTIONS
+  Class-Accessor-Lite-0.05
+    pathname: K/KA/KAZUHO/Class-Accessor-Lite-0.05.tar.gz
+    provides:
+      Class::Accessor::Lite 0.05
+    requirements:
+      ExtUtils::MakeMaker 6.42
+  Math-Int64-0.30
+    pathname: S/SA/SALVA/Math-Int64-0.30.tar.gz
+    provides:
+      Math::Int64 0.30
+      Math::Int64::die_on_overflow undef
+      Math::Int64::native_if_available undef
+      Math::UInt64 0.30
+    requirements:
+      ExtUtils::MakeMaker 0
