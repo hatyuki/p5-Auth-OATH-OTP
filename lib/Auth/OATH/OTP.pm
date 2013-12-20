@@ -1,8 +1,8 @@
 package Auth::OATH::OTP;
-our $VERSION = '0.0001';
-use 5.008001;
 use strict;
 use warnings;
+our $VERSION = '0.0001';
+use 5.008001;
 use Carp ( );
 use Digest::SHA ( );
 use Math::Int64 ( );

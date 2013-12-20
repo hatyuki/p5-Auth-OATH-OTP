@@ -42,10 +42,18 @@ DISTRIBUTIONS
     provides:
       Test::Exception 0.32
     requirements:
-      Module::Build 0.38
       Sub::Uplevel 0.18
       Test::Builder 0.7
       Test::Builder::Tester 1.07
       Test::Harness 2.03
       Test::More 0.7
       Test::Simple 0.7
+  Test-MockTime-0.12
+    pathname: D/DD/DDICK/Test-MockTime-0.12.tar.gz
+    provides:
+      Test::MockTime 0.12
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+      Time::Local 0
+      Time::Piece 1.08

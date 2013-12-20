@@ -20,16 +20,13 @@ sub new
         $args{secret} = generate_secret_key(32);
     }
 
-    return bless +{
-        algorithm => 'sha1',
-        binkey    => Convert::Base32::decode_base32($args{secret}),
-        digits    => 6,
-        label     => '',
-        timestep  => 30,
-        types     => 'totp',
-        window    => 3,
+    return $class->SUPER::new(
+        binkey => Convert::Base32::decode_base32($args{secret}),
+        label  => '',
+        types  => 'totp',
+        window => 3,
         %args,
-    }, $class;
+    );
 }
 
 sub generate_secret_key
@@ -47,9 +44,23 @@ sub verify
     my $method = lc $self->types;
     Carp::croak "Unknown algorithm '$method'" unless $self->can($method);
 
-    my $window = $method eq 'totp' ? $self->window : 1;
+    unless (defined $seed) {
+        if ($method eq 'totp') {
+            $seed = time;
+        } else {
+            Carp::croak 'Required parameter missing: $counter';
+        }
+    }
+
+    # HOTP
+    if ($method eq 'hotp') {
+        return $self->hotp($seed) == $code ? 1 : 0;
+    }
+
+    # TOTP
+    my $window = $self->window;
     for (my $i = int -(($window - 1) / 2) ; $i < $window / 2 ; ++$i) {
-        return 1 if $self->$method($seed) == $code;
+        return 1 if $self->totp($seed + $i * $self->timestep) == $code;
     }
 
     return 0;
@@ -71,8 +82,8 @@ sub key_uri
 {
     my $self   = shift;
     my $types  = lc $self->types;
-    my $label  = URI::Escape::uri_escape($self->label);
-    my $secret = '?secret=' . $self->secret;
+    my $label  = URI::Escape::uri_escape_utf8($self->label);
+    my $secret = 'secret=' . $self->secret;
     return sprintf 'otpauth://%s/%s?%s',$types, $label, $secret;
 }
 
@@ -102,7 +113,8 @@ Auth::OATH::OTP::Verifier - One-Time Passcode Verifier
     my $totp_code = $auth->totp;
 
     # Generate HMAC-based One Time Passcode
-    my $totp_code = $auth->hotp(15);
+    my $counter   = 15;
+    my $hotp_code = $auth->hotp($counter);
 
 =head1 DESCRIPTION
 
@@ -152,7 +164,7 @@ If the argument is missing, random Base32 string of length 32 will be used by de
 
 =back
 
-=head2 B<< $oath->verify($code) : Boolean >>
+=head2 B<< $oath->verify($code[, $seed]) : Boolean >>
 
     my $totp_verifier   = Auth::OATH::OTP::Verifier->new(types => 'totp');
     my $totp_is_success = $totp_verifier->verify($code[, $time]);
