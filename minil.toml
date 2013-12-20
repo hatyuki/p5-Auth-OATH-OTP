@@ -1,4 +1,5 @@
 name = "Auth-OATH-OTP"
+badges = ["travis"]
 
 [no_index]
 directory = ["t", "benchmark"]
