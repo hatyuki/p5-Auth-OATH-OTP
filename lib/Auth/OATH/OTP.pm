@@ -89,7 +89,7 @@ __END__
 
 =head1 NAME
 
-Auth::OATH::OTP - OATH One Time Password
+Auth::OATH::OTP - OATH One-Time Passcode Generator
 
 =head1 SYNOPSIS
 

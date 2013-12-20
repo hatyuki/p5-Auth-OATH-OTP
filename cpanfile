@@ -4,5 +4,5 @@ requires 'Digest::SHA'           => '5.60';
 requires 'Math::Int64'           => '0.28';
 
 on 'test' => sub {
-    requires 'Test::More'   => '0.98';
+    requires 'Test::More' => '0.98';
 };

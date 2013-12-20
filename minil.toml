@@ -1,1 +1,4 @@
 name = "Auth-OATH-OTP"
+
+[no_index]
+directory = ["t", "benchmark"]
