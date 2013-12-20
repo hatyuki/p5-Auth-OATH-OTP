@@ -1,6 +1,6 @@
 # NAME
 
-Auth::OATH::OTP - OATH One Time Password
+Auth::OATH::OTP - OATH One-Time Passcode Generator
 
 # SYNOPSIS
 
@@ -33,29 +33,33 @@ algorithms as defined by OATH. (http://www.openauthentication.org)
 
 - __digits__
 
-    `totp()` and `hotp()` both default to returning 6 digits.
+    `totp( )` and `hotp( )` both default to returning 6 digits.
 
 - __timestep__
 
-    _timestep_ only applies to the `totp()` function.
+    _timestep_ only applies to the `totp( )` function.
 
     By default, the _timestep_ is 30 seconds, so there is a new password every 30 seconds.
 
-## __$oath->totp($secret\_key\[, $time\]) : Integer__
+## __$oath->totp($secret\_key\[, $time\]) : String__
 
     my $secret = pack 'A*', 'My Secret Key';
     my $totp   = $oath->totp($secret);
     # or
     my $totp   = $oath->totp($secret, time);
 
+Returns a text string with the Time-based One Time Passcode.
+
 Manual _time_ is an optional parameter.
 If it is missing, the current time will be used by default.
 This is useful for testing purposes.
 
-## __$oath->hotp($secret\_key, $counter) : Integer__
+## __$oath->hotp($secret\_key, $counter) : String__
 
     my $secret = pack 'A*', 'My Secret Key';
-    my $totp   = $oath->hotp($secret, 1);
+    my $hotp   = $oath->hotp($secret, 1);
+
+Returns a text string with the HMAC-based One Time Passcode.
 
 Both parameters are required.
 

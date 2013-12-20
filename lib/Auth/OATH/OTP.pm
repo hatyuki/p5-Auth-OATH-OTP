@@ -21,9 +21,10 @@ sub new
     }
 
     return bless +{
-        algorithm => $args{algorithm} || 'sha1',
-        digits    => $args{digits}    ||  6,
-        timestep  => $args{timestep}  || 30,
+        algorithm => 'sha1',
+        digits    =>  6,
+        timestep  => 30,
+        %args,
     }, $class;
 }
 
@@ -124,31 +125,35 @@ If the argument is missing, SHA-1 will be used by default.
 
 =item B<digits>
 
-C<totp()> and C<hotp()> both default to returning 6 digits.
+C<totp( )> and C<hotp( )> both default to returning 6 digits.
 
 =item B<timestep>
 
-I<timestep> only applies to the C<totp()> function.
+I<timestep> only applies to the C<totp( )> function.
 
 By default, the I<timestep> is 30 seconds, so there is a new password every 30 seconds.
 
 =back
 
-=head2 B<< $oath->totp($secret_key[, $time]) : Integer >>
+=head2 B<< $oath->totp($secret_key[, $time]) : String >>
 
     my $secret = pack 'A*', 'My Secret Key';
     my $totp   = $oath->totp($secret);
     # or
     my $totp   = $oath->totp($secret, time);
 
+Returns a text string with the Time-based One Time Passcode.
+
 Manual I<time> is an optional parameter.
 If it is missing, the current time will be used by default.
 This is useful for testing purposes.
 
-=head2 B<< $oath->hotp($secret_key, $counter) : Integer >>
+=head2 B<< $oath->hotp($secret_key, $counter) : String >>
 
     my $secret = pack 'A*', 'My Secret Key';
-    my $totp   = $oath->hotp($secret, 1);
+    my $hotp   = $oath->hotp($secret, 1);
+
+Returns a text string with the HMAC-based One Time Passcode.
 
 Both parameters are required.
 
