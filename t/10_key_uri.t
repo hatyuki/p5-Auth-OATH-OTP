@@ -8,18 +8,20 @@ subtest TOTP => sub {
     my $oath = Auth::OATH::OTP::Verifier->new(
         label  => 'Hoge',
         secret => 'A' x 32,
+        issuer => 'Fuga',
         types  => 'TOTP',
     );
-    is $oath->key_uri, 'otpauth://totp/Hoge?secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+    is $oath->key_uri, 'otpauth://totp/Hoge?issuer=Fuga&secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 };
 
 subtest HOTP => sub {
     my $oath = Auth::OATH::OTP::Verifier->new(
-        label  => 'テスト',
+        label  => 'ほげ',
         secret => 'A' x 32,
+        issuer => 'ふが',
         types  => 'HOTP',
     );
-    is $oath->key_uri, 'otpauth://hotp/%E3%83%86%E3%82%B9%E3%83%88?secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+    is $oath->key_uri, 'otpauth://hotp/%E3%81%BB%E3%81%92?issuer=%E3%81%B5%E3%81%8C&secret=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 };
 
 done_testing;

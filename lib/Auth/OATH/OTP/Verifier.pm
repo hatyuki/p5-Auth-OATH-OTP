@@ -8,7 +8,8 @@ use List::Util ( );
 use URI::Escape ( );
 use Class::Accessor::Lite (
     new => 0,
-    ro  => [qw/ algorithm binkey digits label secret timestep types window /],
+    ro  => [qw/ algorithm binkey digits secret timestep types window /],
+    rw  => [qw/ issuer label /],
 );
 
 sub new
@@ -22,6 +23,7 @@ sub new
 
     return $class->SUPER::new(
         binkey => Convert::Base32::decode_base32($args{secret}),
+        issuer => '',
         label  => '',
         types  => 'totp',
         window => 3,
@@ -83,8 +85,14 @@ sub key_uri
     my $self   = shift;
     my $types  = lc $self->types;
     my $label  = URI::Escape::uri_escape_utf8($self->label);
-    my $secret = 'secret=' . $self->secret;
-    return sprintf 'otpauth://%s/%s?%s',$types, $label, $secret;
+    my %params = (
+        secret => $self->secret,
+        issuer => URI::Escape::uri_escape_utf8($self->issuer),
+    );
+
+    my $arg = join '&', map { $_ . '='. $params{$_} } sort keys %params;
+
+    return sprintf 'otpauth://%s/%s?%s',$types, $label, $arg;
 }
 
 1;
@@ -128,7 +136,8 @@ Auth::OATH::OTP::Verifier is ...
         algorithm => 'sha1',
         digits    =>  6,
         timestep  => 30,
-        label     => 'My Authentification',
+        label     => 'user@example.com',
+        issuer    => 'MySite',
         types     => 'TOTP', # Lower-case letters are also allowed.
         window    => 3,
         secret    => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567',
@@ -144,9 +153,13 @@ Auth::OATH::OTP::Verifier is ...
 
 If you want to know about these parameters, see L<Auth::OATH::OTP>.
 
+=item B<issuer>
+
+The B<issuer> parameter is a string value indicating the provider or service this account is associated with.
+
 =item B<label>
 
-The label is used to identify which account a key is associated with.
+The B<label> is used to identify which account a key is associated with.
 
 =item B<types>
 
