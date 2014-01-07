@@ -1,0 +1,5 @@
+requires 'JSON';
+requires 'Plack';
+requires 'Plack::Middleware::Session';
+requires 'Router::Boom';
+requires 'Text::MicroTemplate::DataSection';

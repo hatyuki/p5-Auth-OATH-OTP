@@ -2,4 +2,4 @@ name = "Auth-OATH-OTP"
 badges = ["travis", "coveralls"]
 
 [no_index]
-directory = ["t", "xt", "benchmark"]
+directory = ["t", "xt", "benchmark", "example"]
