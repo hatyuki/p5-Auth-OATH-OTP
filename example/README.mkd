@@ -1,0 +1,12 @@
+# Auth::OATH::OTP Demo Application
+## Setup
+
+    $ cd p5-Auth-OATH-OTP/example
+    $ cpanm -L local/ ../
+    $ carton install --deployment
+
+## Plackup
+
+    $ carton exec -- \
+        start_server --port 5000 --signal-on-hup USR1 -- \
+        plackup -s Starlet -E production --max-workers 2 --max-reqs-per-child 1024 -a app.psgi

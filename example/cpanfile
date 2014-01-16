@@ -1,5 +1,8 @@
+requires 'HTTP::Parser::XS';
 requires 'JSON';
 requires 'Plack';
 requires 'Plack::Middleware::Session';
 requires 'Router::Boom';
+requires 'Server::Starter';
+requires 'Starlet';
 requires 'Text::MicroTemplate::DataSection';
