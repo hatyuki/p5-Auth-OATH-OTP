@@ -4,12 +4,7 @@
 /Build.bat
 /blib
 
-/carton.lock
-/.carton/
 /local/
-
-nytprof.out
-nytprof/
 
 cover_db/
 
@@ -20,7 +15,7 @@ cover_db/
 *.o
 *.obj
 
-!LICENSE
+.perl-version
 
 MYMETA.*
 
