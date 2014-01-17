@@ -83,7 +83,7 @@ __DATA__
     <header>
       <nav class="navbar navbar-default navbar-static-top">
         <div class="navbar-header">
-          <span class="navbar-brand">Auth::OATH::OPT Demo</span>
+          <span class="navbar-brand">Auth::OATH::OTP Demo</span>
         </div>
       </nav>
     </header>
